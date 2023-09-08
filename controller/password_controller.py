@@ -15,7 +15,8 @@ class PasswordController:
             return "Site inconnu"
         
     def create_password(self, site) -> None:
-        self.model.create_password(site)
+        if not self.model.site_exists(site):
+            self.model.create_password(site)
 
     def search_site(self, search) -> list:
         sites = self.get_sites()
