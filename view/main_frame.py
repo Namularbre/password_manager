@@ -26,13 +26,13 @@ class MainPanel(wx.Panel):
         self.search_text_ctrl = wx.TextCtrl(self)
         self.validate_search_btn = wx.Button(self, label = "Search")
         
-        self.search_sizer.Add(self.search_text_ctrl, wx.ALL | wx.EXPAND, 10)
-        self.search_sizer.Add(self.validate_search_btn, wx.ALL | wx.EXPAND, 10)
+        self.search_sizer.Add(self.search_text_ctrl, wx.ALL | wx.EXPAND, 4)
+        self.search_sizer.Add(self.validate_search_btn, wx.ALL | wx.EXPAND, 4)
         #event definition
         self.Bind(wx.EVT_BUTTON, self.__on_search, self.validate_search_btn)
 
         #adding to main sizer
-        self.main_sizer.Add(self.search_sizer, wx.ALL | wx.EXPAND, 10)
+        self.main_sizer.Add(self.search_sizer, wx.ALL | wx.EXPAND | wx.TOP | wx.BOTTOM, 4)
         
 
     def make_display_sites(self) -> None:
@@ -42,7 +42,7 @@ class MainPanel(wx.Panel):
 
         self.__refresh_site_display(sites)
         
-        self.main_sizer.Add(self.site_list, wx.ALL | wx.EXPAND, 10)
+        self.main_sizer.Add(self.site_list, wx.ALL | wx.EXPAND, 4)
 
     def make_password_creation_ctrl(self) -> None:
         #display
@@ -50,14 +50,14 @@ class MainPanel(wx.Panel):
         self.password_creation_ctrl = wx.TextCtrl(self)
         self.save_btn = wx.Button(self, label = "Save")
 
-        self.password_creation_sizer.Add(self.password_creation_ctrl, wx.ALL | wx.EXPAND, 10)
-        self.password_creation_sizer.Add(self.save_btn, wx.ALL | wx.EXPAND, 10)
+        self.password_creation_sizer.Add(self.password_creation_ctrl, wx.ALL | wx.EXPAND, 4)
+        self.password_creation_sizer.Add(self.save_btn, wx.ALL | wx.EXPAND, 4)
 
         #event definition
         self.Bind(wx.EVT_BUTTON, self.__on_save, self.save_btn)
 
         #adding to main sizer
-        self.main_sizer.Add(self.password_creation_sizer, wx.ALL | wx.EXPAND, 10)
+        self.main_sizer.Add(self.password_creation_sizer, wx.ALL | wx.EXPAND | wx.TOP | wx.BOTTOM, 4)
 
     #handlers
     def __on_save(self, event) -> None:
