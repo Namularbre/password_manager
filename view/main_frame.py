@@ -1,4 +1,5 @@
 import wx
+from tkinter import Tk
 from controller.password_controller import PasswordController
 
 class MainFrame(wx.Frame):
@@ -6,14 +7,13 @@ class MainFrame(wx.Frame):
         super().__init__(None)
         self.panel = MainPanel(self)
         self.SetTitle("Password Manager")
-        self.SetSize(800, 600)
 
 class MainPanel(wx.Panel):
     def __init__(self, parent):
         super().__init__(parent)
         self.controller = PasswordController()
         self.main_sizer = wx.BoxSizer(wx.VERTICAL)
-
+ 
         self.make_password_creation_ctrl()
         self.make_search_text_ctrl()
         self.make_display_sites()
@@ -32,7 +32,7 @@ class MainPanel(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self.__on_search, self.validate_search_btn)
 
         #adding to main sizer
-        self.main_sizer.Add(self.search_sizer, wx.ALL | wx.EXPAND | wx.TOP | wx.BOTTOM, 4)
+        self.main_sizer.Add(self.search_sizer, wx.ALL | wx.TOP | wx.BOTTOM, 4)
 
     def make_display_sites(self) -> None:
         self.site_list = wx.ListCtrl(self, style = wx.LC_REPORT)
@@ -40,6 +40,8 @@ class MainPanel(wx.Panel):
         sites = self.controller.get_sites()
 
         self.__refresh_site_display(sites)
+
+        self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.__on_site_click, self.site_list)
         
         self.main_sizer.Add(self.site_list, wx.ALL | wx.EXPAND, 4)
 
@@ -56,7 +58,7 @@ class MainPanel(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self.__on_save, self.save_btn)
 
         #adding to main sizer
-        self.main_sizer.Add(self.password_creation_sizer, wx.ALL | wx.EXPAND | wx.TOP | wx.BOTTOM, 4)
+        self.main_sizer.Add(self.password_creation_sizer, wx.ALL | wx.TOP | wx.BOTTOM, 4)
 
     #handlers
     def __on_save(self, event) -> None:
@@ -69,6 +71,16 @@ class MainPanel(wx.Panel):
     def __on_search(self, event) -> None:
         sites = self.controller.search_site(self.search_text_ctrl.Value)
         self.__refresh_site_display(sites)
+
+    def __on_site_click(self, event) -> None:
+        site = event.GetText()
+        password = self.controller.get_password(site)
+        r = Tk()
+        r.withdraw()
+        r.clipboard_clear()
+        r.clipboard_append(password)
+        r.update()
+        r.destroy()
 
     #private func
     def __refresh_site_display(self, sites) -> None:
