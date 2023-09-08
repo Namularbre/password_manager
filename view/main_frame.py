@@ -33,7 +33,6 @@ class MainPanel(wx.Panel):
 
         #adding to main sizer
         self.main_sizer.Add(self.search_sizer, wx.ALL | wx.EXPAND | wx.TOP | wx.BOTTOM, 4)
-        
 
     def make_display_sites(self) -> None:
         self.site_list = wx.ListCtrl(self, style = wx.LC_REPORT)
