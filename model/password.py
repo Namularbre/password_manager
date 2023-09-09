@@ -1,4 +1,5 @@
 from utils.password_generator import generate_password
+from utils import security
 
 class PasswordModel:
     def __init__(self) -> None:
@@ -8,7 +9,8 @@ class PasswordModel:
 
     def create_password(self, site) -> None:
         password = generate_password()
-        self.passwords.append(Password(site, password))
+        encrypted_password = security.encrypt(password)
+        self.passwords.append(Password(site, encrypted_password))
         self.__save()
 
     def get_sites(self) -> list:
@@ -20,7 +22,7 @@ class PasswordModel:
     def get_password(self, site) -> str|None:
         for password in self.passwords:
             if password.site == site:
-                return password.value
+                return security.decrypt(password.value)
         return None
     
     def site_exists(self, site) -> bool:
@@ -50,4 +52,4 @@ class Password:
         self.value = value
 
     def __str__(self) -> str:
-        return self.site + "," + self.value + ",\n"
+        return self.site + "," + str(self.value) + ",\n"
