@@ -22,6 +22,6 @@ class PasswordController:
         sites = self.get_sites()
         result = []
         for site in sites:
-            if search in site:
+            if search.lower() in site.lover():
                 result.append(site)
         return result
