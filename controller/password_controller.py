@@ -1,5 +1,6 @@
 from model.password import PasswordModel
 
+
 class PasswordController:
     def __init__(self) -> None:
         self.model = PasswordModel()
