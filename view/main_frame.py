@@ -2,11 +2,13 @@ import wx
 from tkinter import Tk
 from controller.password_controller import PasswordController
 
+
 class MainFrame(wx.Frame):
     def __init__(self):
         super().__init__(None)
         self.panel = MainPanel(self)
         self.SetTitle("Password Manager")
+
 
 class MainPanel(wx.Panel):
     def __init__(self, parent):

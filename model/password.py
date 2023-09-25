@@ -1,5 +1,7 @@
 from utils.password_generator import generate_password
 from utils import security
+import os
+
 
 class PasswordModel:
     def __init__(self) -> None:
@@ -46,6 +48,7 @@ class PasswordModel:
         file.write(str_passwords)
         file.close()
 
+
 class Password:
     def __init__(self, site, value) -> None:
         self.site = site
@@ -53,3 +56,4 @@ class Password:
 
     def __str__(self) -> str:
         return self.site + "," + str(self.value) + ",\n"
+
