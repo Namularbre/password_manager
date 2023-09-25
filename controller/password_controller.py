@@ -12,7 +12,7 @@ class PasswordController:
         if password != None:
             return password
         else:
-            return "Site inconnu"
+            return "Unknown site"
         
     def create_password(self, site) -> None:
         if not self.model.site_exists(site):
@@ -22,6 +22,6 @@ class PasswordController:
         sites = self.get_sites()
         result = []
         for site in sites:
-            if search.lower() in site.lover():
+            if search.lower() in site.lower():
                 result.append(site)
         return result
