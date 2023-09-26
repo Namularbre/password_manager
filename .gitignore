@@ -1,1 +1,2 @@
-ressources/pass.csv
+./ressources/*
+__pycache__/
