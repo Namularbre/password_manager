@@ -1,5 +1,5 @@
 from utils.password_generator import generate_password
-from utils.security import encrypt, decrypt 
+from utils.security import encrypt, decrypt
 from entity.password import Password 
 import os
 
@@ -11,7 +11,6 @@ class PasswordModel:
         if not os.path.isfile(self.path):
             self.__create_pass_file()
         self.__load()
-
 
     def create_password(self, site) -> None:
         password = generate_password()
