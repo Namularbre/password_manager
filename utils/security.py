@@ -1,8 +1,15 @@
 from cryptography.fernet import Fernet
+import os
+
+
+__key_file_path = 'ressources/secret.key'
 
 
 def init() -> Fernet:
-    with open('ressources/secret.key', 'rb') as key_file:
+    if not os.path.isfile(__key_file_path):
+        __create_key_file()    
+
+    with open(__key_file_path, 'rb') as key_file:
         key = key_file.read()
 
     if not key:
@@ -24,5 +31,10 @@ def decrypt(encrypted_text) -> str:
 
 
 def __save_key(key) -> None:
-    with open('ressources/secret.key', 'wb') as key_file:
+    with open(__key_file_path, 'wb') as key_file:
         key_file.write(key)
+
+
+def __create_key_file() -> None:
+    f = open(__key_file_path, "wb")
+    f.close()

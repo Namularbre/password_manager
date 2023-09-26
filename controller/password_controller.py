@@ -1,4 +1,4 @@
-from model.password import PasswordModel
+from model.password_model import PasswordModel
 
 
 class PasswordController:
